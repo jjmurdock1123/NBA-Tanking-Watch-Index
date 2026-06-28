@@ -19,21 +19,14 @@ Rather than relying on win totals alone (which can't separate intent from incomp
    - Minutes concentration among top players (`DELTA_MIN_CONC`)
    - Rookie/young-player minutes share (`DELTA_ROOKIE_MIN_SHARE`)
    - Star player inactive ("rest") rate, isolated from "Injury/Illness" absences (`DELTA_INACTIVE_RATE`)
-5. **Two modeling approaches & scoring approach**, built up across the notebook:
-   - **Logistic regression**: interpretable odds ratios for each feature (audience: league office memo)
-   - **Tanking Watch Index (TWI)**: a composite 0-100 score (`RobustScaler`-normalized, outlier-clipped) combining point-differential drop, minutes-concentration drop, rookie-minutes increase, and inactive-rate increase, with a weight-sensitivity analysis across alternative weighting schemes
-   - **K-means clustering** (unsupervised, no ground truth used): recovers a high-risk cluster with a **37% ground-truth tank rate**, vs. ~3% in the other two clusters
-6. **Visualization & case studies** for known tanking franchises (PHI, OKC, UTA, DET, NOP, WAS) plus league-wide trend charts (e.g., blowout rate by season, which hit a record 34% in April 2026).
+5. **Logistic regression as a signal-validation step**: fit on the full 300 team-season sample to test which of the candidate features actually moved the needle on tanking probability, rather than assuming the four headline signals mattered just because they made narrative sense. This step both confirmed suspicions and corrected them: it surfaced `DELTA_ROOKIE_MIN_SHARE` (1.28x odds ratio) and `DELTA_INACTIVE_RATE` (1.20x) as predictors in the expected direction, but also flagged `DELTA_LOOSE_BALLS_RECOVERED` as the single largest coefficient (1.66x) for a confounded reason (rookies hustle for loose balls more than veterans), so it was deliberately left out of the index rather than taken at face value. Two signals that weren't significant by odds ratio, `DELTA_PM` and `DELTA_MIN_CONC`, showed large raw gaps between tanking and non-tanking teams and were kept in the index on that basis.
+6. **Tanking Watch Index (TWI) construction**: a composite 0-100 score (`RobustScaler`-normalized, outlier-clipped) built from the four signals the logistic regression step validated, point-differential drop, minutes-concentration drop, rookie-minutes increase, and inactive-rate increase, weighted 40% minutes concentration / 20% each for the rest, with a sensitivity analysis confirming the ranking is stable across alternative weighting schemes.
+7. **K-means clustering as an independent check**: clustering the same four TWI components with no ground-truth labels involved tests whether those signals reflect real structure in the data, rather than artifacts of how the labels were hand-coded. It recovers a high-risk cluster (37% ground-truth tank rate vs. ~3% elsewhere) that captures 72% of known tankers without ever being told which teams were tanking, which is the validation result the index leans on most.
+8. **Visualization & case studies** for known tanking franchises (PHI, OKC, UTA, DET, NOP, WAS) plus league-wide trend charts (e.g., blowout rate by season, which hit a record 34% in April 2026).
 
 ## Sample results
 
-| Odds ratios (logistic regression) | Tanking probability heatmap |
-|---|---|
-| ![Odds ratios](outputs/fig_odds_ratios.png) | ![Heatmap](outputs/fig_tanking_heatmap.png) |
-
-The strongest single predictor of tanking is a **drop in loose balls recovered per game** post-All-Star (OR ~1.66x), followed by win-rate decline, rising rookie minutes share, and declining deflections: effort and roster-usage signals outperform raw record changes. Vegas preseason underperformance and minutes concentration changes are associated with *lower* odds of the tanking label, consistent with the two-part label design (bottom-8 record + declining win rate) screening out teams that simply got worse without changing how they deploy players.
-
-Unsupervised clustering on the TWI components, with no ground-truth labels involved, independently recovers a cluster of team-seasons with a tanking rate roughly 10x higher than the rest of the league:
+The clustering step in point 7 above is the project's strongest piece of evidence: it independently regroups team-seasons using only the four TWI signals, with no ground-truth labels involved, and still finds a cluster where tanking is roughly 10x more common than in the rest of the league:
 
 ![Cluster scatter](outputs/fig_cluster_scatter.png)
 
