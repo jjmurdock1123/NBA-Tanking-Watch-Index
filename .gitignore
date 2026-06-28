@@ -1,0 +1,15 @@
+# Large media (exceeds GitHub's 100MB file limit) — kept locally only
+NBA_tanking_hot_take_video.mp4
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environment
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
