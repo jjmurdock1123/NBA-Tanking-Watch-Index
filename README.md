@@ -1,6 +1,10 @@
 # NBA Tanking Watch Index
 
-Statistical detection of intentional tanking in the NBA, built for MIT [15.285 Sports Strategy](https://entrepreneurship.mit.edu/) (Spring 2026). The project asks a question relevant to the league office: **can on-court and roster-deployment data distinguish a team that is *trying to lose* from a team that is simply bad?**
+Justine Murdock, Owen Bao, Justin Che
+
+MIT 15.285 Sports Strategy & Analytics, Spring 2026.
+ 
+As a statistical detection of intentional tanking in the NBA, the project asks a question relevant to the league office: **can on-court and roster-deployment data distinguish a team that is *trying to lose* from a team that is simply bad?**
 
 Rather than relying on win totals alone (which can't separate intent from incompetence), the project builds team-season features around the **All-Star break** (the point in the season when teams with no playoff hopes typically begin resting/shutting down veterans and playing younger players), and tests whether the *change* in effort, performance, and roster usage after the break predicts tanking better than record alone.
 
