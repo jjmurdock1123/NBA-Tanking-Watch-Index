@@ -1,8 +1,8 @@
 # NBA Tanking Watch Index
 
-Justine Murdock, Owen Bao, Justin Che
+MIT 15.285 Sports Strategy & Analytics, Spring 2026
 
-MIT 15.285 Sports Strategy & Analytics, Spring 2026.
+Justine Murdock, Owen Bao, Justin Che
  
 As a statistical detection of intentional tanking in the NBA, the project asks a question relevant to the league office: **can on-court and roster-deployment data distinguish a team that is *trying to lose* from a team that is simply bad?**
 
