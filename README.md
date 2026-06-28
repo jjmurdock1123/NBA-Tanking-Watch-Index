@@ -19,7 +19,7 @@ Rather than relying on win totals alone (which can't separate intent from incomp
    - Minutes concentration among top players (`DELTA_MIN_CONC`)
    - Rookie/young-player minutes share (`DELTA_ROOKIE_MIN_SHARE`)
    - Star player inactive ("rest") rate, isolated from "Injury/Illness" absences (`DELTA_INACTIVE_RATE`)
-5. **Two modeling/scoring approaches**, built up across the notebook:
+5. **Two modeling approaches & scoring approach**, built up across the notebook:
    - **Logistic regression**: interpretable odds ratios for each feature (audience: league office memo)
    - **Tanking Watch Index (TWI)**: a composite 0-100 score (`RobustScaler`-normalized, outlier-clipped) combining point-differential drop, minutes-concentration drop, rookie-minutes increase, and inactive-rate increase, with a weight-sensitivity analysis across alternative weighting schemes
    - **K-means clustering** (unsupervised, no ground truth used): recovers a high-risk cluster with a **37% ground-truth tank rate**, vs. ~3% in the other two clusters
