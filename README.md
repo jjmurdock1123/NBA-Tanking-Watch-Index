@@ -1,6 +1,6 @@
 # NBA Tanking Watch Index
 
-MIT 15.285 Sports Strategy & Analytics, Spring 2026
+MIT 15.285 Sports Strategy & Analytics Final Project, Spring 2026
 
 Justine Murdock, Owen Bao, Justin Che
  
